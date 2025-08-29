@@ -1,0 +1,83 @@
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+    background-color: #ffffff; 
+}
+img{
+    
+    text-align: center;
+}
+
+form { 
+    max-width: 600px; 
+    margin: 20px auto; 
+    padding: 30px; 
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
+
+label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: bold; 
+    color: #555; 
+}
+.titulo-formulario{
+    text-align: center;
+    font-size: 2rem;
+}
+.img-central{
+    width:350px;
+    height:350px;
+    display: block;
+    margin: 0 auto;
+}
+
+.campo-input , select {
+            width: calc(100% - 22px); /* Ancho completo menos padding y borde */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+        }
+
+input[type="radio"] { margin-right: 5px; }
+input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover { background-color: #218838; }
+        .location-section {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #fcfcfc;
+        }
+        #selectedLocation {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1.1em;
+            color: #343a40;
+            text-align: center;
+        }
+        /* Estilos para campos de nacimiento y CONADIS si los añades */
+        .half-width { width: calc(50% - 15px); float: left; margin-right: 15px; }
+        .half-width:last-child { margin-right: 0; }
+        .clearfix::after { content: ""; clear: both; display: table; }
+
+    

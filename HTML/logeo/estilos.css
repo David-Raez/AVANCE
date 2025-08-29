@@ -1,0 +1,15 @@
+body{
+	font-family: "tahoma";
+	font-size: 12px;
+	background-color: beige;
+}
+#centrado{
+	text-align:center;
+}
+table{
+	margin: auto;
+}
+img{
+	margin: auto;
+	display: block;
+}
