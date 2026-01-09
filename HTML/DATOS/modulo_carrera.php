@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_carrera = $_POST['id_carrera_oculto'];
         $id_modulo = $_POST['txt_id_modulo'];
         $nombre = $_POST['txt_nombre'];
+        $turno = $_POST['txt_turno'];
+        $periodo_lectivo = $_POST['txt_periodo'];
         $duracion = $_POST['txt_duracion'];
         $inicio = $_POST['txt_inicio'];
         $fin = $_POST['txt_fin'];
@@ -55,9 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (!empty($id_modulo_oculto)) {
             // Es una actualización (UPDATE)
-            $query = "UPDATE modulo SET NOMBRE = ?, DURACION = ?, INICIO = ?, FIN = ? WHERE ID_MODULO = ? AND ID_CARRERA = ?";
+            $query = "UPDATE modulo SET NOMBRE = ?, TURNO = ?, PERIODO_LECTIVO = ?, DURACION = ?, INICIO = ?, FIN = ? WHERE ID_MODULO = ? AND ID_CARRERA = ?";
             $stmt = mysqli_prepare($cn, $query);
-            mysqli_stmt_bind_param($stmt, "sssssi", $nombre, $duracion, $inicio, $fin, $id_modulo, $id_carrera);
+            mysqli_stmt_bind_param($stmt, "sssssi", $nombre, $turno, $periodo_lectivo, $duracion, $inicio, $fin, $id_modulo, $id_carrera);
             if (mysqli_stmt_execute($stmt)) {
                 redirectToForm("Módulo actualizado exitosamente.");
             } else {
@@ -77,9 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($count > 0) {
                 redirectToForm(null, "El ID de módulo ya existe en esta carrera.");
             } else {
-                $query = "INSERT INTO modulo (ID_MODULO, ID_CARRERA, NOMBRE, DURACION, INICIO, FIN) VALUES (?, ?, ?, ?, ?, ?)";
+                $query = "INSERT INTO modulo (ID_MODULO, ID_CARRERA, NOMBRE, TURNO, PERIODO_LECTIVO, DURACION, INICIO, FIN) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = mysqli_prepare($cn, $query);
-                mysqli_stmt_bind_param($stmt, "sissss", $id_modulo, $id_carrera, $nombre, $duracion, $inicio, $fin);
+                mysqli_stmt_bind_param($stmt, "sissss", $id_modulo, $id_carrera, $nombre, $turno, $periodo_lectivo, $duracion, $inicio, $fin);
                 if (mysqli_stmt_execute($stmt)) {
                     redirectToForm("Módulo registrado exitosamente.");
                 } else {

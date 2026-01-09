@@ -156,6 +156,7 @@ if (isset($_SESSION['user_id'])) {
         <a href="/avance/HTML/PRESENTACION/frmDocente.php"><i class="ti ti-chalkboard-teacher"></i>DOCENTES</a>
         <a href="/avance/HTML/presentacion/frmMatricula.php"><i class="ti ti-presentation-analytics"></i>MATRICULA</a>
         <a href="/avance/HTML/PRESENTACION/frmRecibo.php"><i class="ti ti-receipt"></i>RECIBO</a>
+        <a href="/avance/HTML/PRESENTACION/frmFicha.php"><i class="ti ti-receipt"></i>FICHA</a>
         <a href="/avance/HTML/PRESENTACION/frmCarrera.php"><i class="ti ti-library">CARRERAS</i></a>
 		<a href="/avance/HTML/PRESENTACION/frmModulo_Ocupacional.php"><i class="ti ti-book-2">MODULOS</i></a>
 		<a href="/avance/HTML/PRESENTACION/frmFormacion.php"><i class="ti ti-brand-nuxt"></i>FORMACION</a>

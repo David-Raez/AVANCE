@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <th>PROGRAMA DE ESTUDIOS</th>
-      <td><?php echo "" ?></td>
+      <td>PLAN DE ESTUDIOS</td>
       <th>PERIODO LECTIVO</th>
       <td><?php echo "" ?></td>
     </tr>
@@ -156,6 +156,55 @@
         <td><?php echo "" ?></td>
         <td><?php echo "" ?></td>
         <td><?php echo "" ?></td>
+      </tr>
+      <tr>
+        <th rowspan="2" colspan="5" style="text-align: center;">UNIDADES DIDÁCTICAS DE SUBSANACIÓN</th>
+      </tr>
+      <tr>
+
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+          <td colspan="7" style="border: 0;"></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: center;border: 0;"></td>
+        <td colspan="3" style="text-align: center;border: 0;"><img src="../images/firma.png" alt="firma" width="150" height="150"></td>
+        </tr>
+      <tr>
+          <td colspan="4" style="text-align: center;border: 0;">__________________________________________</td>
+          <td colspan="3" style="text-align: center;border: 0;">_________________________</td>
+      </tr>
+      <tr>
+          <td colspan="4" style="text-align: center;border: 0;">FRIMA DEL ESTUDIANTE Y/O APODERADO</td>
+          <td colspan="3" style="text-align: center;border: 0;">SECRETARÍA / DIRECCION</td>
       </tr>
     </tbody>
 

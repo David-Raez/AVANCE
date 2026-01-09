@@ -231,6 +231,14 @@ try {
                                 <input type="text" name="txt_nombre" id="txt_nombre" required>
                             </div>
                             <div class="input-group">
+                                <label>Turno:</label>
+                                <input type="text" name="txt_turno" id="txt_turno" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Periodo Lectivo:</label>
+                                <input type="text" name="txt_periodo" id="txt_periodo" required>
+                            </div>
+                            <div class="input-group">
                                 <label>Duración (ej. 120h):</label>
                                 <input type="text" name="txt_duracion" id="txt_duracion">
                             </div>
