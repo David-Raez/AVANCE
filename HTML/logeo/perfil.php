@@ -1,6 +1,5 @@
 <?php
-    $cn = mysqli_connect("localhost","root","");
-    mysqli_select_db($cn,"cetpro");
+    require_once '../conexion.php';
 
 // Esta página es para cualquier usuario logueado, no requiere un rol específico
 

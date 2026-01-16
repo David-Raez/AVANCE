@@ -18,6 +18,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirigir al formulario de login
-header("Location: /avance/HTML/MODULOS/login.php");
+header("Location: ../MODULOS/login.php");
 exit();
 ?>

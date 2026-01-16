@@ -1,7 +1,7 @@
 <?php
 // /xampp/htdocs/avance/HTML/PRESENTACION/frmMatricula.php
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 $mensaje_error = $_SESSION['matricula_error'] ?? '';
 $mensaje_exito = $_SESSION['matricula_success'] ?? '';
@@ -250,7 +250,7 @@ mysqli_close($cn);
             }
 
             try {
-                const response = await fetch(`/avance/HTML/DATOS/matricula.php?accion=buscar_alumno&documento=${documento}`);
+                const response = await fetch(`../DATOS/matricula.php?accion=buscar_alumno&documento=${documento}`);
                 const alumno = await response.json();
 
                 if (alumno.error) {

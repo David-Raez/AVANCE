@@ -3,7 +3,8 @@
 session_start();
 
 // Incluir la conexión a la base de datos
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 // Recupera los mensajes de sesión y los borra
 $mensaje_error = $_SESSION['unidad_error'] ?? '';
@@ -273,7 +274,7 @@ try {
 
             if (carreraId) {
                 try {
-                    const response = await fetch(`/avance/HTML/DATOS/modulo_carrera.php?accion=listar&id_carrera=${carreraId}`);
+                    const response = await fetch(`../DATOS/modulo_carrera.php?accion=listar&id_carrera=${carreraId}`);
                     const modulos = await response.json();
                     
                     if (modulos.length > 0) {
@@ -321,7 +322,7 @@ try {
 
         async function loadUnidades(moduloId) {
             try {
-                const response = await fetch(`/avance/HTML/DATOS/unidad_didactica.php?accion=listar&id_modulo=${moduloId}`);
+                const response = await fetch(`../DATOS/unidad_didactica.php?accion=listar&id_modulo=${moduloId}`);
                 const unidades = await response.json();
                 
                 unidadesTableBody.innerHTML = '';
@@ -370,7 +371,7 @@ try {
                 formData.append('id_unidad', id);
                 
                 try {
-                    const response = await fetch('/avance/HTML/DATOS/unidad_didactica.php', {
+                    const response = await fetch('../DATOS/unidad_didactica.php', {
                         method: 'POST',
                         body: formData
                     });

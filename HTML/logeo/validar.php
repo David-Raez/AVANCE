@@ -1,6 +1,5 @@
 <?php
-	$cn=mysqli_connect("localhost","root","");
-	mysqli_select_db($cn,"avance");
+	require_once '../conexion.php';
 
 
 
@@ -66,14 +65,6 @@
     	}
 	}
 	
-	if ($usuario=="administrador" && $password=="12345") {
-		$acceso="ok";
-	}
-	if ($usuario=="sistemas" && $password=="67890") {
-		$acceso="ok";
-	}
-	if ($usuario=="operador" && $password=="13579") {
-		$acceso="ok";
-	}
+	
 	
 ?>

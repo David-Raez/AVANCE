@@ -2,8 +2,8 @@
 // /xampp/htdocs/CETPRO/HTML/PRESENTACION/frmAlumno.php
 
 ini_set('display_errors', 1);
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 // Variables de estado
 $mostrar_form_nuevo = isset($_SESSION['mostrar_form_nuevo']) && $_SESSION['mostrar_form_nuevo'];

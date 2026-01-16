@@ -1,7 +1,7 @@
 <?php
     
     ini_set('display_errors', 1);
-    include '/xampp/htdocs/avance/HTML/conexion.php';
+    require_once '../conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_registrar'])) {
 

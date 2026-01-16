@@ -2,7 +2,7 @@
 // /xampp/htdocs/avance/HTML/DATOS/gestion_matricula.php
 session_start();
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
 
 // Redirecciona a la página de gestión después de la acción
 function redirectToGestion($success_message = '', $error_message = '') {
@@ -41,15 +41,45 @@ if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar' && isset($_GET['id']
 }
 
 // Lógica para editar una matrícula (esto es solo un ejemplo)
+// Lógica para EDITAR usando STORED PROCEDURE (Nivel Profesional)
 if (isset($_POST['accion']) && $_POST['accion'] == 'editar' && isset($_POST['id'])) {
-    // Aquí iría el código para procesar la edición de la matrícula.
-    // Necesitarías recibir los datos del formulario de edición y
-    // ejecutar una consulta UPDATE.
     
-    // Ejemplo de un mensaje de éxito/error al finalizar la edición:
-    // redirectToGestion("Matrícula actualizada exitosamente.");
-    // o
-    // redirectToGestion(null, "Error al actualizar la matrícula.");
+    $id_matricula = $_POST['id'];
+    $nuevo_dni = $_POST['n_documento_alumno'];
+    $tipo = $_POST['tipo_programa'];
+    $becado = isset($_POST['becado']) ? 1 : 0;
+
+    // Preparamos variables (Enviamos NULL o string vacío, el SP lo manejará)
+    $id_carrera = ($tipo == 'carrera' && !empty($_POST['id_carrera'])) ? $_POST['id_carrera'] : null;
+    $id_modulo_oc = ($tipo == 'modulo' && !empty($_POST['id_modulo_oc'])) ? $_POST['id_modulo_oc'] : null;
+    $id_formacion = ($tipo == 'formacion' && !empty($_POST['id_formacion'])) ? $_POST['id_formacion'] : null;
+
+    // LLAMAMOS AL PROCEDIMIENTO ALMACENADO
+    // La sintaxis es "CALL NombreProcedimiento(?, ?, ...)"
+    $query = "CALL SP_EDITAR_MATRICULA(?, ?, ?, ?, ?, ?)";
+
+    $stmt = mysqli_prepare($cn, $query);
+
+    if ($stmt) {
+        // "sssssi" -> s (string) para los IDs (aunque sean números, viajan seguro como string o null)
+        mysqli_stmt_bind_param($stmt, "issssi", 
+            $id_matricula, 
+            $nuevo_dni, 
+            $id_carrera, 
+            $id_modulo_oc, 
+            $id_formacion, 
+            $becado
+        );
+
+        if (mysqli_stmt_execute($stmt)) {
+            redirectToGestion("Matrícula actualizada correctamente (vía SP).");
+        } else {
+            redirectToGestion(null, "Error al ejecutar SP: " . mysqli_error($cn));
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        redirectToGestion(null, "Error al preparar el procedimiento.");
+    }
 
     mysqli_close($cn);
     exit();

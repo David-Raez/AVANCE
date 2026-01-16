@@ -1,8 +1,8 @@
 <?php
 // /xampp/htdocs/avance/HTML/PRESENTACION/frmFormacion_continua.php
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 // Manejo de mensajes de sesión y limpieza
 $mensaje_error = $_SESSION['fc_error'] ?? '';
@@ -355,7 +355,7 @@ try {
             formData.append('id_formacion_eliminar', idFormacion);
             formData.append('btn_eliminar', 'Eliminar');
 
-            fetch('/avance/HTML/DATOS/formacion_continua.php', {
+            fetch('../DATOS/formacion_continua.php', {
                 method: 'POST',
                 body: formData
             })

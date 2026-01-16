@@ -2,7 +2,7 @@
 // /xampp/htdocs/avance/HTML/NEGOCIO/pago.php
 ini_set('display_errors', 1);
 session_start();
-include '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
 
 // Validar que la solicitud proviene de un formulario POST o GET con acción
 $action = $_REQUEST['action'] ?? null;

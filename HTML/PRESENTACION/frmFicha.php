@@ -1,6 +1,6 @@
 <?php
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 $doc = $_POST['txt_buscar'] ?? null;
 $rs = null;

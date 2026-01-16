@@ -2,7 +2,7 @@
 // /xampp/htdocs/avance/HTML/DATOS/modulo_ocupacional.php
 session_start();
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
 
 // Maneja las peticiones POST (Guardar, Actualizar, Eliminar)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

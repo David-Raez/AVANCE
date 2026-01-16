@@ -1,8 +1,8 @@
 <?php
 // /xampp/htdocs/CETPRO/HTML/PRESENTACION/frmDocente.php
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 // Obtener las variables de sesión para el estado de la interfaz
 $docente_encontrado = $_SESSION['docente_encontrado'] ?? false;

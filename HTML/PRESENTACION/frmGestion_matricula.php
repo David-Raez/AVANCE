@@ -1,10 +1,10 @@
 <?php
 // /xampp/htdocs/avance/HTML/PRESENTACION/frmGestion_matricula.php
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
-// Limpia los resultados de consultas previas para evitar errores.
+// Limpia los resultados de consultas previas
 while (mysqli_more_results($cn) && mysqli_next_result($cn));
 
 $mensaje_exito = $_SESSION['gestion_success'] ?? '';
@@ -14,38 +14,41 @@ unset($_SESSION['gestion_error']);
 
 $matriculas = [];
 
-// Consulta para obtener las matrículas y los datos del alumno.
-$query = "SELECT * FROM matricula m ORDER BY m.FECHA_REGISTRO DESC";
+// --- CORRECCIÓN CRÍTICA ---
+// 1. Usamos N_DOCUMENTO_ALUMNO para unir con la tabla alumno (verifica que en 'alumno' la columna sea 'N_DOCUMENTO' o 'DNI').
+// 2. Traemos apellidos para mostrar el nombre completo.
+$query = "SELECT m.*, a.NOMBRES, a.APE_PATERNO, a.APE_MATERNO 
+          FROM matricula m 
+          LEFT JOIN alumno a ON m.N_DOCUMENTO_ALUMNO = a.N_DOCUMENTO_ALUMNO 
+          ORDER BY m.FECHA_REGISTRO DESC";
 
 try {
     $result = mysqli_query($cn, $query);
     if ($result) {
-        while ($row = mysqli_fetch_row($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             $matriculas[] = $row;
         }
         mysqli_free_result($result);
     } else {
-        $mensaje_error = "Error al ejecutar la consulta principal: " . mysqli_error($cn);
-        error_log($mensaje_error);
+        // Si falla, mostramos el error SQL para depurar
+        $mensaje_error = "Error SQL: " . mysqli_error($cn);
     }
 } catch (Exception $e) {
-    error_log("Excepción al cargar matrículas: " . $e->getMessage());
-    $mensaje_error = "Excepción al cargar los datos de matrícula.";
+    $mensaje_error = "Excepción: " . $e->getMessage();
 }
 
-// Ahora, obtenemos los nombres de los programas de forma separada.
+// Obtener catálogos para mostrar nombres de programas
 $carreras = [];
 $modulos = [];
 $formaciones = [];
 
-// Se limpian los resultados entre consultas para evitar errores.
+// Limpieza de buffer
 while (mysqli_more_results($cn) && mysqli_next_result($cn));
 $result_carreras = mysqli_query($cn, "SELECT ID_CARRERA, PROGRAMA_ESTUDIO FROM carrera");
 if ($result_carreras) {
     while ($row = mysqli_fetch_assoc($result_carreras)) {
         $carreras[$row['ID_CARRERA']] = $row['PROGRAMA_ESTUDIO'];
     }
-    mysqli_free_result($result_carreras);
 }
 
 while (mysqli_more_results($cn) && mysqli_next_result($cn));
@@ -54,7 +57,6 @@ if ($result_modulos) {
     while ($row = mysqli_fetch_assoc($result_modulos)) {
         $modulos[$row['ID_MODULO_OCUPACIONAL']] = $row['MODULO'];
     }
-    mysqli_free_result($result_modulos);
 }
 
 while (mysqli_more_results($cn) && mysqli_next_result($cn));
@@ -63,7 +65,6 @@ if ($result_formaciones) {
     while ($row = mysqli_fetch_assoc($result_formaciones)) {
         $formaciones[$row['ID_FORM']] = $row['NOMBRE_FORMACION'];
     }
-    mysqli_free_result($result_formaciones);
 }
 
 mysqli_close($cn);
@@ -108,7 +109,8 @@ mysqli_close($cn);
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Alumno</th>
+                            <th>DNI Alumno</th>
+                            <th>Nombre Alumno</th>
                             <th>Tipo</th>
                             <th>Programa</th>
                             <th>Becado</th>
@@ -120,35 +122,54 @@ mysqli_close($cn);
                         <?php foreach ($matriculas as $mat):
                             $tipo_programa = '';
                             $nombre_programa = '';
+                            
+                            // Determinamos el programa
                             if (!empty($mat['ID_MODULO'])) {
                                 $tipo_programa = 'Carrera';
-                                $nombre_programa = $carreras[$mat['ID_MODULO']] ?? 'No encontrado';
+                                $nombre_programa = $carreras[$mat['ID_MODULO']] ?? $mat['ID_MODULO'];
                             } elseif (!empty($mat['ID_MODULO_OCUPACIONAL'])) {
                                 $tipo_programa = 'Módulo Ocupacional';
-                                $nombre_programa = $modulos[$mat['ID_MODULO_OCUPACIONAL']] ?? 'No encontrado';
+                                $nombre_programa = $modulos[$mat['ID_MODULO_OCUPACIONAL']] ?? $mat['ID_MODULO_OCUPACIONAL'];
                             } elseif (!empty($mat['ID_FORM'])) {
                                 $tipo_programa = 'Formación Continua';
-                                $nombre_programa = $formaciones[$mat['ID_FORM']] ?? 'No encontrado';
+                                $nombre_programa = $formaciones[$mat['ID_FORM']] ?? $mat['ID_FORM'];
+                            } else {
+                                $tipo_programa = 'Sin asignar';
+                                $nombre_programa = '---';
+                            }
+                            
+                            // Construimos nombre completo si existen los campos, si no, usa el DNI
+                            $nombreCompleto = $mat['NOMBRE_ALUMNO'] ?? '';
+                            if (isset($mat['APELLIDO_PATERNO'])) $nombreCompleto .= ' ' . $mat['APELLIDO_PATERNO'];
+                            if (isset($mat['APELLIDO_MATERNO'])) $nombreCompleto .= ' ' . $mat['APELLIDO_MATERNO'];
+                            
+                            if (trim($nombreCompleto) == '') {
+                                $nombreCompleto = "Alumno (" . $mat['N_DOCUMENTO_ALUMNO'] . ")";
                             }
                         ?>
                         <tr>
                             <td><?php echo htmlspecialchars($mat['ID_MATRICULA']); ?></td>
-                            <td><?php echo htmlspecialchars($mat['NOMBRE_ALUMNO']); ?></td>
+                            <td><?php echo htmlspecialchars($mat['N_DOCUMENTO_ALUMNO']); ?></td>
+                            <td><?php echo htmlspecialchars($nombreCompleto); ?></td>
                             <td><?php echo htmlspecialchars($tipo_programa); ?></td>
                             <td><?php echo htmlspecialchars($nombre_programa); ?></td>
                             <td><?php echo ($mat['BECADO'] == 1) ? 'Sí' : 'No'; ?></td>
-                            <td><?php echo htmlspecialchars($mat['FECHA_MATRICULA']); ?></td>
+                            <td><?php echo htmlspecialchars($mat['FECHA_REGISTRO']); ?></td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="#" class="btn-action btn-edit">Editar</a>
+                                    <a href="frmEditar_matricula.php?id=<?php echo $mat['ID_MATRICULA']; ?>" class="btn-action btn-edit">Editar</a>
                                     <a href="#" class="btn-action btn-delete" onclick="confirmarEliminar(<?php echo htmlspecialchars($mat['ID_MATRICULA']); ?>)">Eliminar</a>
                                 </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>
+                        
                         <?php if (empty($matriculas)): ?>
                             <tr>
-                                <td colspan="7">No se encontraron matrículas.</td>
+                                <td colspan="8" style="text-align:center;">
+                                    No se encontraron registros. <br>
+                                    <small>(Verifica que la tabla 'alumno' tenga la columna 'N_DOCUMENTO' coincidente)</small>
+                                </td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -161,7 +182,7 @@ mysqli_close($cn);
     </footer>
     <script>
         function confirmarEliminar(id) {
-            if (confirm("¿Estás seguro de que deseas eliminar esta matrícula? Esta acción no se puede deshacer.")) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta matrícula?")) {
                 window.location.href = `../DATOS/gestion_matricula.php?accion=eliminar&id=${id}`;
             }
         }

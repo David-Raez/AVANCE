@@ -3,8 +3,8 @@
 
 
 // Incluir la conexión a la base de datos
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 // Recupera los mensajes de sesión y los borra
 $mensaje_error = $_SESSION['modulo_error'] ?? '';
 $mensaje_exito = $_SESSION['modulo_success'] ?? '';
@@ -324,7 +324,7 @@ try {
 
         async function loadModulos(carreraId) {
             try {
-                const response = await fetch(`/avance/HTML/DATOS/modulo_carrera.php?accion=listar&id_carrera=${carreraId}`);
+                const response = await fetch(`../DATOS/modulo_carrera.php?accion=listar&id_carrera=${carreraId}`);
                 const modulos = await response.json();
                 
                 modulosTableBody.innerHTML = ''; // Limpiar la tabla
@@ -371,7 +371,7 @@ try {
                 formData.append('id_modulo', id);
                 
                 try {
-                    const response = await fetch('/avance/HTML/DATOS/modulo_carrera.php', {
+                    const response = await fetch('../DATOS/modulo_carrera.php', {
                         method: 'POST',
                         body: formData
                     });

@@ -1,8 +1,8 @@
 <?php
 // /xampp/htdocs/avance/HTML/PRESENTACION/frmRecibo.php
 ini_set('display_errors', 1);
-include '/xampp/htdocs/avance/HTML/conexion.php';
-include '/xampp/htdocs/avance/HTML/logeo/encabezado.php';
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 // El archivo recibo.php debe estar en la misma carpeta o incluirse correctamente
 include '/xampp/htdocs/avance/HTML/DATOS/recibo.php';

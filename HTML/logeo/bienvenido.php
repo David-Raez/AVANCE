@@ -4,7 +4,7 @@ include("encabezado.php");
 // Verifica si el usuario no ha iniciado sesión
 if (!isset($_SESSION['user_id'])) {
     // Si no está logueado, redirige al formulario de login
-    header("Location: /avance/HTML/presentacion/frmLogin.php");
+    header("Location: ../presentacion/frmLogin.php");
     exit();
 }
 

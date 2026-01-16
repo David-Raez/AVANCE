@@ -1,5 +1,5 @@
 <?php 
     
-    require_once '/xampp/htdocs/avance/HTML/conexion.php';
+    require_once '../conexion.php';
    
 ?>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
 
 // Mostrar errores en desarrollo. ¡Desactivar para producción!
 ini_set('display_errors', 1);

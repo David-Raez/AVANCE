@@ -2,8 +2,8 @@
 // /xampp/htdocs/avance/HTML/PRESENTACION/frmPago.php
 ini_set('display_errors', 1);
 
-include '/xampp/htdocs/avance/HTML/conexion.php';
-include '/xampp/htdocs/avance/HTML/logeo/encabezado.php';
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 // Definir variables de acción y datos del formulario
 $action = $_GET['action'] ?? 'list';

@@ -2,8 +2,7 @@
 
 
 // Incluye la conexión a la base de datos y funciones de ayuda
-$cn = mysqli_connect("localhost","root","");
-mysqli_select_db($cn,"avance");
+require_once '../conexion.php';
 
 // Redirigir si el usuario no está logueado
 

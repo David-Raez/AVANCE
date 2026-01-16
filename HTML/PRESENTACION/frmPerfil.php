@@ -1,103 +1,46 @@
 <?php 
-    include("/xampp/htdocs/avance/HTML/DATOS/perfil.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
-    
-
-include ("/xampp/htdocs/avance/html/logeo/encabezado.php");
-
-if(isset($_SESSION['user_id']))
-{
-
-
-
-
+// Obtenemos datos frescos del usuario
+$id = $_SESSION['user_id'];
+$query = mysqli_query($cn, "SELECT * FROM usuario WHERE ID_USUARIO = '$id'");
+$user = mysqli_fetch_assoc($query);
 ?>
 
-
-    <div class="content-page">
-	
-    <!-- Start content -->
-    <div class="content">
-        
-        <div class="container-fluid">
-                
-                    <div class="row">
-                                <div class="col-xl-12">
-                                        <div class="breadcrumb-holder">
-                                                <h1 class="main-title float-left">Cambiar Contraseña</h1>
-                                                <div class="clearfix"></div>
-                                        </div>
-                                </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0" style="border-radius: 20px;">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <img src="https://ui-avatars.com/api/?name=<?php echo $user['NOMBRES']; ?>&size=128&background=random" class="rounded-circle shadow" alt="avatar">
+                        <h2 class="mt-3 font-weight-bold"><?php echo $user['NOMBRES'] . " " . $user['APE_PATERNO']; ?></h2>
+                        <span class="badge bg-info text-dark">Usuario Activo</span>
                     </div>
-                    <!-- end row -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                        <form id="fcambiar">
-                        <label>Ingrese la contraseña actual</label>
-                        <input type="password" class="form-control" name="txtcontraseñaactual" id="txtcontraseñaactual"/>
-                        <label>Ingrese la contraseña nueva</label>
-                        <input type="password" class="form-control"  name="txtcontraseñanueva" id="txtcontraseñanueva"/>
-                        <br>
-                        <center>
-                        <span class="btn btn-primary" id="btncambiar">Actualizar</span>
-                        </center>
+                    
+                    <hr>
+                    
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <p class="text-muted mb-1">Documento de Identidad</p>
+                            <h5><?php echo $user['N_DOCUMENTO_USUARIO']; ?></h5>
                         </div>
-                        </form>
-                        
+                        <div class="col-sm-6">
+                            <p class="text-muted mb-1">Fecha de Ingreso</p>
+                            <h5><?php echo date('d/m/Y'); ?></h5>
+                        </div>
                     </div>
 
-
-
+                    <div class="d-grid gap-2 mt-5">
+                        <a href="frmCambiarClave.php" class="btn btn-warning btn-lg shadow-sm">
+                            <i class="ti ti-lock-cog"></i> Configurar Seguridad y Contraseña
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- END container-fluid -->
-
     </div>
-    <!-- END content -->
-
 </div>
-<!-- END content-page -->
 
-
-
-<?php
-require '/xampp/htdocs/avance/html/logeo/pie.php';
-}
-else {
-	header("location:../presentacion/frmLogin.php");  
-}
-
-?>
-
-
-<script>
-$(document).ready(function()
-{
-  $('#btncambiar').click(function()
-{
-      datos = $('#fcambiar').serialize();
-      $.ajax({
-      type:"POST",
-      data:datos,
-      url:"../procesos/usuarios/cambiarpass.php",
-      success:function(r)
-      {
-        if(r=="v")
-        {
-          alertify.error('complete todos los campos');
-        }
-        else if(r==1) {
-            window.location = "../procesos/usuarios/salir.php";
-        }
-        else if(r=="cr") {
-          alertify.error("La contraseña actual es incorrecta");
-        }
-        else{
-            alert(r);
-        }
-      }
-    });
-});
-});
-</script>
-
-
+<?php include("../logeo/pie.php"); ?>

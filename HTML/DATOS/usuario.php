@@ -9,7 +9,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Incluir la conexión a la base de datos
-include '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
 
 // Limpiar sesiones anteriores para evitar mostrar datos incorrectos
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

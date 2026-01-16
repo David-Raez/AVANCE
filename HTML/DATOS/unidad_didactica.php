@@ -2,7 +2,7 @@
 // /xampp/htdocs/avance/HTML/DATOS/unidad_didactica.php
 session_start();
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
 
 // Redireccionar al formulario principal
 function redirectToForm($success_message = '', $error_message = '') {

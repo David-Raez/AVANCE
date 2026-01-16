@@ -1,7 +1,8 @@
 <?php 
     session_start();
     
-    include("/xampp/htdocs/avance/HTML/DATOS/login.php");
+    require_once '../conexion.php';
+    include("../DATOS/login.php");
     
 ?>
 

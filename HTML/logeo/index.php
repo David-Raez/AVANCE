@@ -11,7 +11,6 @@
 		<?php 
 			error_reporting(0);
 			require('encabezado.php'); 
-			require('capturar.php');
 		?>
 	</header>
 	<section>

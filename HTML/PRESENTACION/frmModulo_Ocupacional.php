@@ -1,8 +1,8 @@
 <?php
 // /xampp/htdocs/avance/HTML/PRESENTACION/frmModulo_ocupacional.php
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
-include("/xampp/htdocs/avance/HTML/logeo/encabezado.php");
+require_once '../conexion.php';
+include("../logeo/encabezado.php");
 
 // Manejo de mensajes de sesión y limpieza
 $mensaje_error = $_SESSION['modulo_error'] ?? '';
@@ -346,7 +346,7 @@ try {
             formData.append('id_modulo_eliminar', idModulo);
             formData.append('btn_eliminar', 'Eliminar');
 
-            fetch('/avance/HTML/DATOS/modulo_ocupacional.php', {
+            fetch('../DATOS/modulo_ocupacional.php', {
                 method: 'POST',
                 body: formData
             })

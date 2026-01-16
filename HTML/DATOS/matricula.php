@@ -2,7 +2,7 @@
 // /xampp/htdocs/avance/HTML/DATOS/matricula.php
 session_start();
 
-require_once '/xampp/htdocs/avance/HTML/conexion.php';
+require_once '../conexion.php';
 
 function redirectToForm($success_message = '', $error_message = '') {
     if ($success_message) {

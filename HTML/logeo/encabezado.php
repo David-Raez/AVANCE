@@ -1,6 +1,6 @@
 <?php
 // C:\xampp\htdocs\AVANCE\HTML\logeo\encabezado.php
-include("/xampp/htdocs/avance/HTML/conexion.php");
+include("../conexion.php");
 session_start();
 
 // Definimos la variable $nombre_usuario con un valor por defecto.
